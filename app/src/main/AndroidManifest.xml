@@ -9,13 +9,23 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
+        tools:replace="android:icon"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EducationAPPsysProject"
         tools:targetApi="31">
         <activity
-            android:name=".admin.addCourse"
+            android:name=".admin.addcourse_folder.uploadingQuestions"
+            android:exported="false" />
+        <activity
+            android:name=".admin.addcourse_folder.uploadVideoPic"
+            android:exported="false" />
+        <activity
+            android:name=".examsection.views.ExamHome"
+            android:exported="false" />
+        <activity
+            android:name=".admin.addcourse_folder.addCourseName"
             android:exported="false" />
         <activity
             android:name=".homepage.abouUs"
@@ -40,6 +50,12 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".videosection.VideoHome"
+            android:exported="false" />
+        <activity
+            android:name=".videosection.ShowVideo"
             android:exported="false" />
         <activity
             android:name=".splashScreen"

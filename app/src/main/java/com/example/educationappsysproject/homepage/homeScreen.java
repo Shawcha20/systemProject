@@ -29,11 +29,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class homeScreen extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -116,8 +121,34 @@ public class homeScreen extends AppCompatActivity implements NavigationView.OnNa
     }
 
     //for drawer
-
-
+//
+//    private void fetchCourses() {
+//        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+//        CollectionReference coursesRef = firestore.collection("courses");
+//
+//        coursesRef.get().addOnCompleteListener(task -> {
+//            if (task.isSuccessful()) {
+//                List<String> courseNames = new ArrayList<>();
+//                for (QueryDocumentSnapshot document : task.getResult()) {
+//                    String courseName = document.getString("CourseName");
+//                    courseNames.add(courseName);
+//                }
+//
+//                // Update the CardView text dynamically
+//                if (courseNames.size() > 0) {
+//                    admission.setText(courseNames.get(0)); // Set the first course to Admission card
+//                }
+//                if (courseNames.size() > 1) {
+//                    hsc.setText(courseNames.get(1)); // Set the second course to HSC card
+//                }
+//                if (courseNames.size() > 2) {
+//                    ssc.setText(courseNames.get(2)); // Set the third course to SSC card
+//                }
+//            } else {
+//                Toast.makeText(homeScreen.this, "Error fetching courses", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
@@ -157,12 +188,13 @@ public class homeScreen extends AppCompatActivity implements NavigationView.OnNa
 
 
     //end drawer
-
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            // Close the navigation drawer if it's open
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
+            // Show the AlertDialog
             AlertDialog.Builder builder = new AlertDialog.Builder(homeScreen.this);
             builder.setMessage("Are you sure you want to QUIT App?");
             builder.setCancelable(false);
@@ -179,13 +211,14 @@ public class homeScreen extends AppCompatActivity implements NavigationView.OnNa
             builder.setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.cancel();
+                    dialogInterface.dismiss(); // Close the dialog without exiting the app
                 }
             });
+
+            // Show the dialog
             builder.create().show();
         }
-        super.onBackPressed(); // Call the default behavior after handling your logic.
     }
-    // i guess everything will work now
+
 
 }

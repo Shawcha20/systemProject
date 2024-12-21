@@ -28,6 +28,16 @@
 
 
 
+    <color name="purple">#A770FF</color>
+    <color name="light_sky">#59CFFA</color>
+    <color name="greensha">#00FF00</color>
+    <color name="redsha">#FF0000</color>
+    //color added Naf
+    <color name="blue">#27CEE3</color>
+    <color name="darkBlue">#0785F3</color>
+
+
+
     <!--    color items-->
     <color name="color1">#F1755B</color>
     <color name="color2">#5CB187</color>

@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -21,8 +23,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.educationappsysproject.Authentication.login;
-import com.example.educationappsysproject.Authentication.signup;
 import com.example.educationappsysproject.R;
+import com.example.educationappsysproject.admin.addcourse_folder.addCourseName;
 import com.example.educationappsysproject.homepage.courseDetails;
 import com.example.educationappsysproject.homepage.userDeatils;
 import com.example.educationappsysproject.splashScreen;
@@ -42,12 +44,15 @@ public class adminHomePage extends AppCompatActivity implements NavigationView.O
 
     public TextView userEmail, userName ,  userHomeName ;
     public CardView admission , hsc ,ssc ;
-
+    public Button addCourse;
     FirebaseDatabase database;
     DatabaseReference reference;
 
     FirebaseAuth auth;
 
+    // for listing courses
+    ListView courseListView;
+    String[] courses={"course1 ", "course2", "course3"};
     // for drawer layout
     private DrawerLayout drawerLayout;
     Toolbar toolbar;
@@ -59,10 +64,15 @@ public class adminHomePage extends AppCompatActivity implements NavigationView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_home_page);
 
-//        admission = findViewById(R.id.admissionCard);
-//        hsc = findViewById(R.id.hscCard);
-//        ssc = findViewById(R.id.sscCard);
+        // adding course button
+        addCourse=findViewById(R.id.addCourseButton);
         userHomeName = findViewById(R.id.userHomeName);
+
+
+        // courselist
+        courseListView=findViewById(R.id.courseListView);
+        ArrayAdapter<String>adapter=new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,courses);
+        courseListView.setAdapter(adapter);
 
         auth = FirebaseAuth.getInstance();
         firebaseUser = auth.getCurrentUser();
@@ -110,12 +120,36 @@ public class adminHomePage extends AppCompatActivity implements NavigationView.O
                 }
             });
         }
+        // going to add course activity
+        addCourse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(adminHomePage.this, addCourseName.class);
+                startActivity(intent);
+            }
+        });
 
-        // Card click listeners
-//        admission.setOnClickListener(v -> startActivity(new Intent(com.example.educationappsysproject.homepage.homeScreen.this, courseDetails.class)));
-//        hsc.setOnClickListener(v -> Toast.makeText(com.example.educationappsysproject.homepage.homeScreen.this, "Upcoming HSC section", Toast.LENGTH_SHORT).show());
-//        ssc.setOnClickListener(v -> Toast.makeText(com.example.educationappsysproject.homepage.homeScreen.this, "Upcoming SSC section", Toast.LENGTH_SHORT).show());
+
+
+        // forlist view
+        DocumentReference CourseRef= firestore.collection("courses").document();
+        CourseRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+
+            }
+        });
+        courseListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selectedCourse = courses[position];
+                Intent intent = new Intent(adminHomePage.this, courseDetails.class);
+                intent.putExtra("courseName", selectedCourse);
+                startActivity(intent);
+            }
+        });
     }
+
 
     //for drawer
 
@@ -163,10 +197,12 @@ public class adminHomePage extends AppCompatActivity implements NavigationView.O
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            // Close the navigation drawer if it's open
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
-            AlertDialog.Builder builder = new AlertDialog.Builder(com.example.educationappsysproject.admin.adminHomePage.this);
-            builder.setMessage("Are you sure you want to QUIT App?");
+            // Show the AlertDialog
+            AlertDialog.Builder builder = new AlertDialog.Builder(adminHomePage.this);
+            builder.setMessage("Are you sure you want to QUIT the app?");
             builder.setCancelable(false);
 
             builder.setNegativeButton("QUIT APP", new DialogInterface.OnClickListener() {
@@ -181,13 +217,15 @@ public class adminHomePage extends AppCompatActivity implements NavigationView.O
             builder.setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.cancel();
+                    dialogInterface.dismiss(); // Close the dialog without exiting the app
                 }
             });
+
+            // Show the dialog
             builder.create().show();
         }
-        super.onBackPressed(); // Call the default behavior after handling your logic.
     }
+
     // i guess everything will work now
 
 }

@@ -4,17 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.educationappsysproject.R;
 
-public class courseDetails extends AppCompatActivity {
+import com.example.educationappsysproject.examsection.views.ExamHome;
+import com.example.educationappsysproject.videosection.VideoHome;
 
+public class courseDetails extends AppCompatActivity {
 
     CardView video , exam , pdf;
 
@@ -29,14 +27,14 @@ public class courseDetails extends AppCompatActivity {
         video.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(courseDetails.this , courseDetails.class);
+                Intent i = new Intent(courseDetails.this , VideoHome.class);
                 startActivity(i);
             }
         });
         exam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(courseDetails.this , courseDetails.class);
+                Intent i = new Intent(courseDetails.this , ExamHome.class);
                 startActivity(i);
             }
         });
