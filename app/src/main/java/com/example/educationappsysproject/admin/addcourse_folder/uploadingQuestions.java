@@ -26,8 +26,8 @@ public class uploadingQuestions extends AppCompatActivity {
         buttonDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                new SweetAlertDialog(uploadingQuestions.this, SweetAlertDialog.ERROR_TYPE)
-//                        .setTitleText("oopps").setContentText("somethijng went wrong").show();
+              //  new SweetAlertDialog(uploadingQuestions.this, SweetAlertDialog.ERROR_TYPE)
+                    //    .setTitleText("oopps").setContentText("somethijng went wrong").show();
 
             }
         });

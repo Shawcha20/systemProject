@@ -24,24 +24,14 @@
             android:id="@+id/textViewTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Upload Media"
+            android:layout_marginBottom="24dp"
+            android:text="update Video"
             android:textAlignment="center"
-            android:textSize="22sp"
-            android:textStyle="bold"
             android:textColor="@android:color/black"
-            android:layout_marginBottom="24dp" />
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
         <!-- Select Picture Section -->
-        <Button
-            android:id="@+id/buttonSelectPicture"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Select Picture from Gallery"
-            android:textSize="18sp"
-            android:padding="12dp"
-            android:backgroundTint="@color/blue"
-            android:textColor="@android:color/white"
-            android:layout_marginBottom="16dp" />
 
         <ImageView
             android:id="@+id/imageViewPreview"
@@ -53,16 +43,17 @@
             android:layout_marginBottom="16dp" />
 
         <!-- Select Video Section -->
+
         <Button
             android:id="@+id/buttonSelectVideo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Select Video from Gallery"
-            android:textSize="18sp"
-            android:padding="12dp"
+            android:layout_marginBottom="16dp"
             android:backgroundTint="@color/blue"
+            android:padding="12dp"
+            android:text="Select Video from Gallery"
             android:textColor="@android:color/white"
-            android:layout_marginBottom="16dp" />
+            android:textSize="18sp" />
 
         <VideoView
             android:id="@+id/videoViewPreview"
@@ -109,17 +100,6 @@
             android:text="Upload" />
 
         <!-- Next Button -->
-        <Button
-            android:id="@+id/goToQuestion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="24dp"
-            android:backgroundTint="@color/blue"
-            android:padding="12dp"
-            android:text="Next"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
 
     </LinearLayout>
 </ScrollView>

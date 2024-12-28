@@ -9,12 +9,24 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        tools:replace="android:icon"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EducationAPPsysProject"
+        tools:replace="android:icon"
         tools:targetApi="31">
+        <activity
+            android:name=".admin.editCourse.updateQuestion"
+            android:exported="false" />
+        <activity
+            android:name=".admin.editCourse.pdateVideo"
+            android:exported="false" />
+        <activity
+            android:name=".admin.editCourse.show_course_content"
+            android:exported="false" />
+        <activity
+            android:name=".admin.addcourse_folder.number_of_questions"
+            android:exported="false" />
         <activity
             android:name=".admin.addcourse_folder.uploadingQuestions"
             android:exported="false" />

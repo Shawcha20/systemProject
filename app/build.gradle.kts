@@ -44,14 +44,6 @@ android {
         }
     }
 }
-
-
-// shawcha added
-
-
-//repositories{
-//        mavenCentral()
-//}
 val navVersion = "2.2.1"
 dependencies {
 
@@ -101,8 +93,4 @@ dependencies {
     implementation("androidx.navigation:navigation-ui:$navVersion")
     implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
 
-
-//
-//    // sweet alert
-   // implementation("com.github.f0ris.sweetalert:library:1.5.1");
 }
