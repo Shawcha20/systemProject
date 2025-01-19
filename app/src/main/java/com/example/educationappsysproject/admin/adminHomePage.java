@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,20 +17,19 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.educationappsysproject.Authentication.login;
 import com.example.educationappsysproject.R;
 import com.example.educationappsysproject.admin.addcourse_folder.addCourseName;
+import com.example.educationappsysproject.admin.course.courseAdapter;
 import com.example.educationappsysproject.homepage.courseDetails;
 import com.example.educationappsysproject.homepage.userDeatils;
 import com.example.educationappsysproject.splashScreen;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -44,16 +42,15 @@ import java.util.List;
 public class adminHomePage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     public TextView userEmail, userName, userHomeName;
-    public CardView admission, hsc, ssc;
     public Button addCourse;
     FirebaseAuth auth;
 
-    // for listing courses
+    // For listing courses
     ListView courseListView;
     List<String> courseTitles = new ArrayList<>();
-    ArrayAdapter<String> adapter;
+    List<String> documentIds = new ArrayList<>();
 
-    // for drawer layout
+    // For drawer layout
     private DrawerLayout drawerLayout;
     Toolbar toolbar;
 
@@ -68,10 +65,6 @@ public class adminHomePage extends AppCompatActivity implements NavigationView.O
         addCourse = findViewById(R.id.addVideoButton);
         userHomeName = findViewById(R.id.userHomeName);
         courseListView = findViewById(R.id.videoListView);
-
-        // Set up adapter for ListView
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, courseTitles);
-        courseListView.setAdapter(adapter);
 
         auth = FirebaseAuth.getInstance();
         firebaseUser = auth.getCurrentUser();
@@ -97,29 +90,30 @@ public class adminHomePage extends AppCompatActivity implements NavigationView.O
         if (firebaseUser != null) {
             String userId = firebaseUser.getUid();
 
-            DocumentReference docRef = firestore.collection("users").document(userId);
-            docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                @Override
-                public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException error) {
-                    if (error != null) {
-                        Toast.makeText(adminHomePage.this, "Error loading user data", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
+            firestore.collection("users").document(userId)
+                    .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException error) {
+                            if (error != null) {
+                                Toast.makeText(adminHomePage.this, "Error loading user data", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
 
-                    if (snapshot != null && snapshot.exists()) {
-                        String name = snapshot.getString("Name");
-                        String email = snapshot.getString("Email");
+                            if (snapshot != null && snapshot.exists()) {
+                                String name = snapshot.getString("Name");
+                                String email = snapshot.getString("Email");
 
-                        userName.setText(name);
-                        userEmail.setText(email);
-                        userHomeName.setText("Welcome " + name);
-                    } else {
-                        Toast.makeText(adminHomePage.this, "User data not found", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
+                                userName.setText(name);
+                                userEmail.setText(email);
+                                userHomeName.setText("Welcome " + name);
+                            } else {
+                                Toast.makeText(adminHomePage.this, "User data not found", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
         }
 
+        // Fetch courses from Firestore
         // Fetch courses from Firestore
         firestore.collection("course").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -130,28 +124,42 @@ public class adminHomePage extends AppCompatActivity implements NavigationView.O
                 }
 
                 if (snapshots != null) {
-                    courseTitles.clear(); // Clear the existing list
+                    courseTitles.clear();
+                    documentIds.clear(); // Clear the existing document IDs
                     for (DocumentSnapshot document : snapshots.getDocuments()) {
                         String courseTitle = document.getString("title"); // Assuming "title" holds the course name
                         if (courseTitle != null) {
                             courseTitles.add(courseTitle);
+                            documentIds.add(document.getId()); // Save the document ID
                         }
                     }
-                    adapter.notifyDataSetChanged(); // Notify adapter of data changes
+
+                    // Pass the first document ID or another default value as the courseId
+                    String courseId = documentIds.isEmpty() ? "" : documentIds.get(0);
+                    courseAdapter adapter = new courseAdapter(adminHomePage.this, courseTitles);
+                    courseListView.setAdapter(adapter);
                 }
             }
         });
+
 
         // Handle ListView item click
         courseListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String selectedCourse = courseTitles.get(position);
+                String documentId = documentIds.get(position);
+                Toast.makeText(adminHomePage.this, "Selected: " + selectedCourse, Toast.LENGTH_SHORT).show();
+                // Log the values
+                System.out.println("Selected Course: " + selectedCourse + ", Document ID: " + documentId);
+
                 Intent intent = new Intent(adminHomePage.this, courseDetails.class);
                 intent.putExtra("courseName", selectedCourse);
+                intent.putExtra("documentId", documentId);
                 startActivity(intent);
             }
         });
+
 
         // Add Course Button
         addCourse.setOnClickListener(new View.OnClickListener() {

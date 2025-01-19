@@ -13,19 +13,19 @@ import java.util.List;
 
 public class ExamListRepository {
     private  onFirestoreTaskComplete onFirestoreTaskComplete;
-private FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
-private CollectionReference reference=firebaseFirestore.collection("Exam");
-public ExamListRepository(onFirestoreTaskComplete onFirestoreTaskComplete)
-{
-    this.onFirestoreTaskComplete=onFirestoreTaskComplete;
-}
-public void getExamData()
+    private FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
+    private CollectionReference reference=firebaseFirestore.collection("Exam");
+    public ExamListRepository(onFirestoreTaskComplete onFirestoreTaskComplete)
+    {
+        this.onFirestoreTaskComplete=onFirestoreTaskComplete;
+    }
+    public void getExamData()
     {
         reference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
-                 onFirestoreTaskComplete.examDataLoaded(task.getResult().toObjects(ExamListModel.class));
+                    onFirestoreTaskComplete.examDataLoaded(task.getResult().toObjects(ExamListModel.class));
                 }
                 else {
                     onFirestoreTaskComplete.onError(task.getException());

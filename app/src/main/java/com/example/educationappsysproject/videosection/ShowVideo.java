@@ -31,7 +31,7 @@ public class ShowVideo extends AppCompatActivity {
         showVideo = findViewById(R.id.videoView);
 
         // Get course title from the intent
-        courseTitle = getIntent().getStringExtra("courseName");
+        courseTitle = getIntent().getStringExtra("videoUrl");
      //   Toast.makeText(ShowVideo.this,courseTitle,Toast.LENGTH_SHORT).show();
         if (courseTitle == null || courseTitle.isEmpty()) {
             Toast.makeText(this, "Course title is missing.", Toast.LENGTH_SHORT).show();
@@ -44,28 +44,30 @@ public class ShowVideo extends AppCompatActivity {
     }
 
     private void fetchVideoUrl(String title) {
-        firestore.collection("course")
-                .whereEqualTo("title", title)
-                .get()
-                .addOnSuccessListener(querySnapshot -> {
-                    if (!querySnapshot.isEmpty()) {
-                        // Get the first document that matches the query
-                        DocumentSnapshot document = querySnapshot.getDocuments().get(0);
-                        String videoUrl = document.getString("videoUrl");
+//        firestore.collection("course")
+//                .document(documentId)
+//                .collection("videos")
+//                .whereEqualTo("videoUrl", VideoUrl)
+//                .get()
+//                .addOnSuccessListener(querySnapshot -> {
+//                    if (!querySnapshot.isEmpty()) {
+//                        // Get the first document that matches the query
+//                        DocumentSnapshot document = querySnapshot.getDocuments().get(0);
+                        String videoUrl = title;
 
                         if (videoUrl != null && !videoUrl.isEmpty()) {
                             playVideo(videoUrl);
                         } else {
                             Toast.makeText(this, "Video URL not found for this course.", Toast.LENGTH_SHORT).show();
                         }
-                    } else {
-                        Toast.makeText(this, "No course found with the given title.", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(e -> {
-                    Log.e("Firestore Error", "Error fetching video URL: " + e.getMessage());
-                    Toast.makeText(this, "Error fetching video URL.", Toast.LENGTH_SHORT).show();
-                });
+//                    } else {
+//                        Toast.makeText(this, "No course found with the given title.", Toast.LENGTH_SHORT).show();
+//                    }
+//                })
+//                .addOnFailureListener(e -> {
+//                    Log.e("Firestore Error", "Error fetching video URL: " + e.getMessage());
+//                    Toast.makeText(this, "Error fetching video URL.", Toast.LENGTH_SHORT).show();
+//                });
     }
 
     private void playVideo(String url) {

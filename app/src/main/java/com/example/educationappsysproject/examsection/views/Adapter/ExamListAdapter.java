@@ -19,7 +19,6 @@ import com.example.educationappsysproject.examsection.views.Model.ExamListModel;
 import java.util.List;
 
 public class ExamListAdapter extends RecyclerView.Adapter<ExamListAdapter.ExamListViewHolder> {
-
     private List<ExamListModel> examListModels;
     private OnItemClickedListner onItemClickedListner;
 

@@ -60,7 +60,7 @@ public class addCourseName extends AppCompatActivity {
         Map<String, Object> courseData = new HashMap<>();
         courseData.put("title", courseName);
         courseData.put("course_description", description);
-
+        courseData.put("enrolled",false);
         // Add the data to the "course" collection
         db.collection("course")
                 .add(courseData)

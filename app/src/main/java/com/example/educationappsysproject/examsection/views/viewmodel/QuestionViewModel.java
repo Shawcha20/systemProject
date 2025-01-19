@@ -12,6 +12,7 @@ import com.example.educationappsysproject.examsection.views.repository.QuestionR
 import java.util.HashMap;
 import java.util.List;
 
+
 public class QuestionViewModel extends ViewModel implements QuestionRepository.OnQuestionLoad, QuestionRepository.OnResultAdded, QuestionRepository.OnResultLoad {
     private MutableLiveData<List<QuestionModel>> questionMutableLiveData;
     private QuestionRepository repository;

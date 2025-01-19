@@ -10,7 +10,6 @@ import com.example.educationappsysproject.examsection.views.Model.ExamListModel;
 import com.example.educationappsysproject.examsection.views.repository.ExamListRepository;
 
 import java.util.List;
-
 public class ExamListViewModel extends ViewModel implements ExamListRepository.onFirestoreTaskComplete {
     private MutableLiveData<List<ExamListModel>> examListLiveData= new MutableLiveData<>();
     private ExamListRepository repository= new ExamListRepository(this);
@@ -30,6 +29,6 @@ public class ExamListViewModel extends ViewModel implements ExamListRepository.o
 
     @Override
     public void onError(Exception e) {
-    Log.d("ExamError","onError"+e.getMessage());
+        Log.d("ExamError","onError"+e.getMessage());
     }
 }

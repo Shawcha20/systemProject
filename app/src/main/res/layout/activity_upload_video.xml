@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white">
@@ -54,7 +55,7 @@
 
         <!-- Select Video Section -->
         <Button
-            android:id="@+id/buttonSelectVideo"
+            android:id="@+id/selectVideo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Select Video from Gallery"
@@ -70,6 +71,27 @@
             android:layout_height="200dp"
             android:visibility="gone"
             android:layout_marginBottom="16dp" />
+
+        <!-- Select PDF Section -->
+        <Button
+            android:id="@+id/selectPdf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select PDF"
+            android:textSize="18sp"
+            android:padding="12dp"
+            android:backgroundTint="@color/blue"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="16dp" />
+
+        <!-- PDF View -->
+<!--        <com.github.barteksc.pdfviewer.PDFView-->
+<!--            android:id="@+id/pdfViewPreview"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="300dp"-->
+<!--            android:visibility="gone"-->
+<!--            android:layout_marginBottom="16dp"-->
+<!--            tools:ignore="MissingClass" />-->
 
         <!-- Loading Section -->
         <LinearLayout

@@ -37,7 +37,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class quizFragment extends Fragment implements View.OnClickListener {
-
     private QuestionViewModel viewModel;
     private NavController navController;
     private ProgressBar progressBar;
@@ -117,17 +116,20 @@ public class quizFragment extends Fragment implements View.OnClickListener {
     }
     private void loadQuestions(int i){
         currentQueNo=i;
-        viewModel.getQuestionMutableLiveData().observe(getViewLifecycleOwner(), questionModels -> {
-            questionTv.setText(String.valueOf(currentQueNo) + ") " + questionModels.get(i - 1).getQuestion());
-            option1Btn.setText(questionModels.get(i - 1).getOption_a());
-            option2Btn.setText(questionModels.get(i - 1).getOption_b());
-            option3Btn.setText(questionModels.get(i - 1).getOption_c());
-            timer = questionModels.get(i-1).getTimer();
-            answer = questionModels.get(i-1).getAnswer();
+        viewModel.getQuestionMutableLiveData().observe(getViewLifecycleOwner(), new Observer<List<QuestionModel>>() {
+            @Override
+            public void onChanged(List<QuestionModel> questionModels) {
+                questionTv.setText(String.valueOf(currentQueNo) + ") " + questionModels.get(i - 1).getQuestion());
+                option1Btn.setText(questionModels.get(i - 1).getOption_a());
+                option2Btn.setText(questionModels.get(i - 1).getOption_b());
+                option3Btn.setText(questionModels.get(i - 1).getOption_c());
+                timer = questionModels.get(i-1).getTimer();
+                answer = questionModels.get(i-1).getAnswer();
 
-            //todo set current que no, to que number tv
-            questionNumberTv.setText(String.valueOf(currentQueNo));
-            startTimer();
+                //todo set current que no, to que number tv
+                questionNumberTv.setText(String.valueOf(currentQueNo));
+                startTimer();
+            }
         });
         canAnswer=true;
     }

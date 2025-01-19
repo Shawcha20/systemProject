@@ -31,10 +31,10 @@ public class QuestionRepository {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if(task.isSuccessful())
                 {
-                 resultMap.put("correct",task.getResult().getLong("correct"));
-                 resultMap.put("notAnswered",task.getResult().getLong("not answered"));
-                 resultMap.put("wrong",task.getResult().getLong("wrong"));
-                 onResultLoad.onResultLoad(resultMap);
+                    resultMap.put("correct",task.getResult().getLong("correct"));
+                    resultMap.put("notAnswered",task.getResult().getLong("not answered"));
+                    resultMap.put("wrong",task.getResult().getLong("wrong"));
+                    onResultLoad.onResultLoad(resultMap);
                 }
                 else{
                     onResultLoad.onError(task.getException());
@@ -71,15 +71,15 @@ public class QuestionRepository {
 
     public void getQuestions(){
         firebaseFirestore.collection("Exam").document(examId).collection("Question").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull  Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()){
-                            onQuestionLoad.onLoad(task.getResult().toObjects(QuestionModel.class));
-                        }else{
-                            onQuestionLoad.onError(task.getException());
-                        }
-                    }
-                });
+            @Override
+            public void onComplete(@NonNull  Task<QuerySnapshot> task) {
+                if (task.isSuccessful()){
+                    onQuestionLoad.onLoad(task.getResult().toObjects(QuestionModel.class));
+                }else{
+                    onQuestionLoad.onError(task.getException());
+                }
+            }
+        });
     }
 
     public interface OnResultLoad{

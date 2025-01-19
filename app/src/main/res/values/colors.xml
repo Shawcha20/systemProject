@@ -67,4 +67,29 @@
     <color name="option4">#FF8033</color>
 
     <color name="colorPrimaryText">@android:color/white</color>
+
+    <!-- Primary Theme Colors -->
+    <color name="primaryColor">#1976D2</color>
+    <color name="primaryLightColor">#63A4FF</color>
+    <color name="primaryDarkColor">#004BA0</color>
+    
+    <!-- Secondary Colors -->
+    <color name="secondaryColor">#FF4081</color>
+    <color name="secondaryLightColor">#FF79B0</color>
+    <color name="secondaryDarkColor">#C60055</color>
+
+    <!-- Background Colors -->
+    <color name="backgroundColor">#F5F5F5</color>
+    <color name="surfaceColor">#FFFFFF</color>
+    <color name="cardBackground">#FFFFFF</color>
+
+    <!-- Text Colors -->
+    <color name="textPrimary">#212121</color>
+    <color name="textSecondary">#757575</color>
+    <color name="textOnPrimary">#FFFFFF</color>
+
+    <!-- Status Colors -->
+    <color name="success">#4CAF50</color>
+    <color name="error">#F44336</color>
+    <color name="warning">#FFC107</color>
 </resources>

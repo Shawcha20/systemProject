@@ -23,6 +23,7 @@ public class courseDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_details);
         String courseName=getIntent().getStringExtra("courseName");
+        String documentId=getIntent().getStringExtra("documentId");
         video = findViewById(R.id.videoCard);
         exam = findViewById(R.id.examCard);
         pdf = findViewById(R.id.pdfCard);
@@ -40,6 +41,8 @@ public class courseDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(courseDetails.this , ExamHome.class);
+                i.putExtra("courseName",courseName);
+                i.putExtra("documentId",documentId);
                 startActivity(i);
             }
         });

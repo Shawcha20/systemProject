@@ -11,8 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Title -->
-
+        <!-- Toolbar -->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar4"
             android:layout_width="match_parent"
@@ -21,6 +20,7 @@
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme" />
 
+        <!-- Title -->
         <TextView
             android:id="@+id/textViewTitle"
             android:layout_width="match_parent"
@@ -32,96 +32,15 @@
             android:textColor="@android:color/black"
             android:layout_marginBottom="24dp" />
 
-        <!-- Question Input -->
-        <TextView
+        <!-- Dynamic Container for Questions -->
+        <LinearLayout
+            android:id="@+id/questionContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Question:"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="8dp"
-            android:textColor="@android:color/black" />
-
-        <EditText
-            android:id="@+id/editTextQuestion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter your question here"
-            android:padding="12dp"
-            android:background="@android:drawable/editbox_background"
-            android:textSize="16sp"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Options -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Options:"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="8dp"
-            android:textColor="@android:color/black" />
-
-        <EditText
-            android:id="@+id/editTextOption1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Option 1"
-            android:padding="12dp"
-            android:background="@android:drawable/editbox_background"
-            android:textSize="16sp"
-            android:layout_marginBottom="12dp" />
-
-        <EditText
-            android:id="@+id/editTextOption2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Option 2"
-            android:padding="12dp"
-            android:background="@android:drawable/editbox_background"
-            android:textSize="16sp"
-            android:layout_marginBottom="12dp" />
-
-        <EditText
-            android:id="@+id/editTextOption3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Option 3"
-            android:padding="12dp"
-            android:background="@android:drawable/editbox_background"
-            android:textSize="16sp"
-            android:layout_marginBottom="12dp" />
-
-        <EditText
-            android:id="@+id/editTextOption4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Option 4"
-            android:padding="12dp"
-            android:background="@android:drawable/editbox_background"
-            android:textSize="16sp"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Timer -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Timer (in seconds):"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="8dp"
-            android:textColor="@android:color/black" />
-
-        <EditText
-            android:id="@+id/editTextTimer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter timer in seconds"
-            android:inputType="number"
-            android:padding="12dp"
-            android:background="@android:drawable/editbox_background"
-            android:textSize="16sp"
-            android:layout_marginBottom="24dp" />
+            android:orientation="vertical"
+            android:layout_marginBottom="24dp">
+            <!-- Dynamic content will be added programmatically here -->
+        </LinearLayout>
 
         <!-- Done Button -->
         <Button
@@ -134,6 +53,5 @@
             android:backgroundTint="@color/blue"
             android:textColor="@android:color/white"
             android:layout_gravity="center_horizontal" />
-
     </LinearLayout>
 </ScrollView>

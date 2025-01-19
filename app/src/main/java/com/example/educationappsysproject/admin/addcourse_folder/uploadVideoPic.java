@@ -23,7 +23,7 @@ import java.util.UUID;
 
 public class uploadVideoPic extends AppCompatActivity {
 
-    private Button uploadButton, selectPictureButton, selectVideoButton, goToQuestionButton;
+    private Button uploadButton, selectPictureButton, selectVideoButton, goToQuestionButton,selectPdf;
     private ImageView imageViewPreview;
     private VideoView videoViewPreview;
 
@@ -47,7 +47,7 @@ public class uploadVideoPic extends AppCompatActivity {
 
         // Initialize Views
         selectPictureButton = findViewById(R.id.buttonSelectPicture);
-        selectVideoButton = findViewById(R.id.buttonSelectVideo);
+        selectVideoButton = findViewById(R.id.selectVideo);
         uploadButton = findViewById(R.id.upload);
         goToQuestionButton = findViewById(R.id.goToQuestion);
         imageViewPreview = findViewById(R.id.imageViewPreview);

@@ -26,7 +26,6 @@ import com.example.educationappsysproject.examsection.views.viewmodel.ExamListVi
 import java.util.List;
 
 public class ListFragment extends Fragment implements ExamListAdapter.OnItemClickedListner {
-
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
     private NavController navController;
@@ -67,9 +66,9 @@ public class ListFragment extends Fragment implements ExamListAdapter.OnItemClic
 
     @Override
     public void onItemClick(int position) {
-    ListFragmentDirections.ActionListFragmentToDetailFragment action=
-            ListFragmentDirections.actionListFragmentToDetailFragment();
+        ListFragmentDirections.ActionListFragmentToDetailFragment action=
+                ListFragmentDirections.actionListFragmentToDetailFragment();
         action.setPosition(position);
-            navController.navigate(action);
+        navController.navigate(action);
     }
 }

@@ -45,7 +45,7 @@
         <!-- Select Video Section -->
 
         <Button
-            android:id="@+id/buttonSelectVideo"
+            android:id="@+id/updateVIdeo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -56,7 +56,7 @@
             android:textSize="18sp" />
 
         <VideoView
-            android:id="@+id/videoViewPreview"
+            android:id="@+id/UvideoViewPreview"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:visibility="gone"
@@ -90,14 +90,14 @@
 
         <!-- Upload Button -->
         <Button
-            android:id="@+id/upload"
+            android:id="@+id/upDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="24dp"
             android:backgroundTint="@color/blue"
             android:padding="12dp"
-            android:text="Upload" />
+            android:text="Update" />
 
         <!-- Next Button -->
 
