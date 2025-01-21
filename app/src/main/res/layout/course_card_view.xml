@@ -2,7 +2,6 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/CardStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -26,7 +25,7 @@
 
             <TextView
                 android:id="@+id/courseTitle"
-                style="@style/TextSubheading"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -34,7 +33,7 @@
 
             <TextView
                 android:id="@+id/courseDescription"
-                style="@style/TextBody"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="2"

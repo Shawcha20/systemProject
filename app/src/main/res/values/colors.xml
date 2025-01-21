@@ -28,16 +28,6 @@
 
 
 
-    <color name="purple">#A770FF</color>
-    <color name="light_sky">#59CFFA</color>
-    <color name="greensha">#00FF00</color>
-    <color name="redsha">#FF0000</color>
-    //color added Naf
-    <color name="blue">#27CEE3</color>
-    <color name="darkBlue">#0785F3</color>
-
-
-
     <!--    color items-->
     <color name="color1">#F1755B</color>
     <color name="color2">#5CB187</color>
@@ -65,31 +55,11 @@
     <color name="option2">#A919DD</color>
     <color name="option3">#E34B4A</color>
     <color name="option4">#FF8033</color>
-
+    <color name="greensha">#00FF00</color>
+    <color name="redsha">#FF0000</color>
     <color name="colorPrimaryText">@android:color/white</color>
 
-    <!-- Primary Theme Colors -->
-    <color name="primaryColor">#1976D2</color>
-    <color name="primaryLightColor">#63A4FF</color>
-    <color name="primaryDarkColor">#004BA0</color>
-    
-    <!-- Secondary Colors -->
-    <color name="secondaryColor">#FF4081</color>
-    <color name="secondaryLightColor">#FF79B0</color>
-    <color name="secondaryDarkColor">#C60055</color>
-
-    <!-- Background Colors -->
-    <color name="backgroundColor">#F5F5F5</color>
-    <color name="surfaceColor">#FFFFFF</color>
-    <color name="cardBackground">#FFFFFF</color>
-
-    <!-- Text Colors -->
-    <color name="textPrimary">#212121</color>
-    <color name="textSecondary">#757575</color>
-    <color name="textOnPrimary">#FFFFFF</color>
-
-    <!-- Status Colors -->
-    <color name="success">#4CAF50</color>
-    <color name="error">#F44336</color>
-    <color name="warning">#FFC107</color>
+    <color name="light_sky">#87CEFA</color> <!-- Replace with the desired light sky color -->
+    <color name="blue">#0000FF</color> <!-- Replace with the desired blue color -->
+    <color name="purple">#800080</color> <!-- Replace with the desired purple color -->
 </resources>
