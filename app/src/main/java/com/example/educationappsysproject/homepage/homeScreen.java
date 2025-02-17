@@ -125,6 +125,7 @@ public class homeScreen extends AppCompatActivity implements NavigationView.OnNa
                     String imageUrl = document.getString("imageUrl");
 
                     if (title != null && imageUrl != null) {
+                      Toast.makeText(homeScreen.this,"successfully fetched",Toast.LENGTH_SHORT).show();
                         courseList.add(new Course(title, imageUrl));
                     } else {
                         Log.w("fetchCourses", "Missing title or imageUrl in course document");
