@@ -16,6 +16,21 @@
         tools:replace="android:icon"
         tools:targetApi="31">
         <activity
+            android:name=".homepage.chat.ChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".homepage.chat.UserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".homepage.chatBotActivity"
+            android:exported="false" />
+        <activity
+            android:name=".homepage.chatMessageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".homepage.allCoursesSection"
+            android:exported="false" />
+        <activity
             android:name=".homepage.course_description"
             android:exported="false" />
         <activity

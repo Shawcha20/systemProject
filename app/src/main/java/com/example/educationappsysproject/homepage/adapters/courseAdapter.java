@@ -1,4 +1,4 @@
-package com.example.educationappsysproject.homepage;
+package com.example.educationappsysproject.homepage.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;

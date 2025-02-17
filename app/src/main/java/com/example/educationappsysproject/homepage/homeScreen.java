@@ -1,6 +1,5 @@
 package com.example.educationappsysproject.homepage;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,7 +21,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.educationappsysproject.Authentication.login;
 import com.example.educationappsysproject.R;
+import com.example.educationappsysproject.homepage.adapters.recyclerViewAdapter;
+import com.example.educationappsysproject.homepage.chat.ChatActivity;
+import com.example.educationappsysproject.homepage.chat.UserActivity;
 import com.example.educationappsysproject.splashScreen;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -62,6 +65,43 @@ public class homeScreen extends AppCompatActivity implements NavigationView.OnNa
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+        // bottom navigation
+        // Initialize BottomNavigationView
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+
+        // Set the default selected item (Home)
+        bottomNavigationView.setSelectedItemId(R.id.nav_home);
+
+        // Handle bottom navigation clicks
+        bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int itemId = item.getItemId();
+                if (itemId == R.id.nav_home) {
+                    startActivity(new Intent(getApplicationContext(), homeScreen.class)); // Already in home screen
+                } else if (itemId == R.id.nav_chat) {
+                    startActivity(new Intent(getApplicationContext(), allCoursesSection.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                } else if (itemId == R.id.nav_chatbot) {
+                    startActivity(new Intent(getApplicationContext(), UserActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                } else if (itemId == R.id.nav_course) {
+                    startActivity(new Intent(getApplicationContext(), chatBotActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+
+
+
+
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.nav_open, R.string.nav_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
@@ -78,15 +118,19 @@ public class homeScreen extends AppCompatActivity implements NavigationView.OnNa
         }
 
         RecyclerView recyclerView = findViewById(R.id.coursesRecyclerView);
+       // RecyclerView recyclerView1= findViewById(R.id.coursesRecyclerViewAll);
         List<Course> courseList = new ArrayList<>();
+      //  List<Course>courseList1= new ArrayList<>();
         recyclerViewAdapter adapter = new recyclerViewAdapter(this, courseList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        recyclerView.setAdapter(adapter);
+
 
         fetchCourses(adapter, courseList);
+
+        // fetch all courses
+     //   fetchCourses(adapter,courseList1);
     }
 
     private void fetchUserData(String userId) {
@@ -121,20 +165,23 @@ public class homeScreen extends AppCompatActivity implements NavigationView.OnNa
         coursesRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
+                   Integer popular = document.get("popular", Integer.class);
+                    if(popular > 1){
                     String title = document.getString("title");
                     String imageUrl = document.getString("imageUrl");
 
                     if (title != null && imageUrl != null) {
-                      Toast.makeText(homeScreen.this,"successfully fetched",Toast.LENGTH_SHORT).show();
+
                         courseList.add(new Course(title, imageUrl));
                     } else {
                         Log.w("fetchCourses", "Missing title or imageUrl in course document");
                     }
+                    }
                 }
                 adapter.notifyDataSetChanged();
             } else {
-                Toast.makeText(homeScreen.this, "Error fetching courses", Toast.LENGTH_SHORT).show();
-            }
+               Toast.makeText(homeScreen.this, "Error fetching courses", Toast.LENGTH_SHORT).show();
+           }
         });
     }
 

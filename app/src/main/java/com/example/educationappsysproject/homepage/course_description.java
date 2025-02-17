@@ -13,8 +13,12 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.educationappsysproject.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
 
 public class course_description extends AppCompatActivity {
 
@@ -56,22 +60,40 @@ public class course_description extends AppCompatActivity {
 
         // Handle Enroll button click
         enrollButton.setOnClickListener(v -> {
-            if (courseId != null) {
-                // Update the 'enrolled' field in Firebase
-                db.collection("course").document(courseId)
-                        .update("enrolled", true)
+            FirebaseAuth auth = FirebaseAuth.getInstance();
+            String userEmail = auth.getCurrentUser().getEmail(); // Get logged-in user's email
+
+            if (courseId != null && userEmail != null) {
+                // Reference to enrolled_users subcollection
+                CollectionReference enrolledUsersRef = db.collection("course").document(courseId).collection("enrolled_users");
+
+                // Add user to enrolled_users subcollection
+                enrolledUsersRef.document(userEmail)
+                        .set(new HashMap<>()) // Store an empty document
                         .addOnSuccessListener(aVoid -> {
-                            Toast.makeText(this, "Enrolled Successfully!", Toast.LENGTH_SHORT).show();
-                            // Navigate to the next activity
-                            Intent intent = new Intent(course_description.this, courseDetails.class);
-                            intent.putExtra("courseName",courseName);
-                            intent.putExtra("courseImage", courseImage);
-                            startActivity(intent);
-                            finish();
+                            // After enrolling, count the number of enrolled users
+                            enrolledUsersRef.get().addOnSuccessListener(querySnapshot -> {
+                                int enrolledCount = querySnapshot.size(); // Get total number of enrolled users
+
+                                // Update the 'popular' field in the course document
+                                db.collection("course").document(courseId)
+                                        .update("popular", enrolledCount)
+                                        .addOnSuccessListener(aVoid1 -> {
+                                            Toast.makeText(course_description.this, "Enrolled Successfully!", Toast.LENGTH_SHORT).show();
+                                            // Navigate to courseDetails
+                                            Intent intent = new Intent(course_description.this, courseDetails.class);
+                                            intent.putExtra("courseName", courseName);
+                                            intent.putExtra("courseImage", courseImage);
+                                            startActivity(intent);
+                                            finish();
+                                        })
+                                        .addOnFailureListener(e -> Toast.makeText(course_description.this, "Failed to update popularity!", Toast.LENGTH_SHORT).show());
+                            });
                         })
-                        .addOnFailureListener(e -> Toast.makeText(this, "Failed to enroll!", Toast.LENGTH_SHORT).show());
+                        .addOnFailureListener(e -> Toast.makeText(course_description.this, "Failed to enroll!", Toast.LENGTH_SHORT).show());
             }
         });
+
     }
 
 }

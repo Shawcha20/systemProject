@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/baseline_home_24_red"
+        android:title="Home"/>
+
+    <item
+        android:id="@+id/nav_chat"
+        android:icon="@drawable/course_icon"
+        android:title="Courses"/>
+
+    <item
+        android:id="@+id/nav_chatbot"
+        android:icon="@drawable/chat_messenger"
+        android:title="Chat"/>
+
+    <item
+        android:id="@+id/nav_course"
+        android:icon="@drawable/ic_menu_gallery"
+        android:title="ChatBot"/>
+</menu>
