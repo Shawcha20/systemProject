@@ -25,14 +25,14 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="16dp"
         app:cardElevation="2dp"
-        app:cardBackgroundColor="@color/dark_blue">
+        app:cardBackgroundColor="#f3f4f8">
 
         <TextView
             android:id="@+id/received_message_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="12dp"
-            android:textColor="@color/red"
+            android:textColor="@color/black"
             android:maxWidth="250dp"
             android:textSize="16sp"/>
     </androidx.cardview.widget.CardView>

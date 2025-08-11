@@ -2,22 +2,17 @@ package com.example.educationappsysproject.homepage.chat;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,6 +24,7 @@ import com.example.educationappsysproject.homepage.allCoursesSection;
 import com.example.educationappsysproject.homepage.chatBotActivity;
 import com.example.educationappsysproject.homepage.homeScreen;
 import com.example.educationappsysproject.homepage.models.Users;
+import com.example.educationappsysproject.homepage.searchCourseActivity;
 import com.example.educationappsysproject.homepage.userDeatils;
 import com.example.educationappsysproject.splashScreen;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -45,9 +41,9 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class UserActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private TextView userEmail, userName,userHomeName;
+    private TextView userEmail, userName, userHomeName;
     private RecyclerView recyclerView;
     private UserAdapter userAdapter;
     private List<Users> usersList;
@@ -56,6 +52,7 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
     private FirebaseUser firebaseUser;
+    private String currentUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +63,6 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
 
-
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -74,39 +70,39 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // bottom navigation
-        // Initialize BottomNavigationView
+        // Bottom navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-
-        // Set the default selected item (Home)
         bottomNavigationView.setSelectedItemId(R.id.nav_chatbot);
 
         // Handle bottom navigation clicks
-        bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int itemId = item.getItemId();
-                if (itemId == R.id.nav_home) {
-                    startActivity(new Intent(getApplicationContext(), homeScreen.class)); // Already in home screen
-                } else if (itemId == R.id.nav_chat) {
-                    startActivity(new Intent(getApplicationContext(), allCoursesSection.class));
-                    overridePendingTransition(0, 0);
-                    return true;
-                } else if (itemId == R.id.nav_chatbot) {
-                    startActivity(new Intent(getApplicationContext(), UserActivity.class));
-                    overridePendingTransition(0, 0);
-                    return true;
-                } else if (itemId == R.id.nav_course) {
-                    startActivity(new Intent(getApplicationContext(), chatBotActivity.class));
-                    overridePendingTransition(0, 0);
-                    return true;
-                }
-                return false;
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.nav_home) {
+                startActivity(new Intent(getApplicationContext(), homeScreen.class));
+                overridePendingTransition(0, 0);
+                return true;
+            } else if (itemId == R.id.nav_chat) {
+                startActivity(new Intent(getApplicationContext(), allCoursesSection.class));
+                overridePendingTransition(0, 0);
+                return true;
+            } else if (itemId == R.id.nav_chatbot) {
+                startActivity(new Intent(getApplicationContext(), UserActivity.class));
+                overridePendingTransition(0, 0);
+//                return true;
+            } else if (itemId == R.id.nav_course) {
+                startActivity(new Intent(getApplicationContext(), chatBotActivity.class));
+                overridePendingTransition(0, 0);
+                return true;
             }
+            else if(itemId==R.id.nav_search){
+                startActivity(new Intent(getApplicationContext(), searchCourseActivity.class));
+                overridePendingTransition(0, 0);
+                return true;
+            }
+            return false;
         });
 
-
-        // side navigation bar
+        // Side navigation bar
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.nav_open, R.string.nav_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
@@ -115,21 +111,20 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
         userEmail = headerView.findViewById(R.id.drawerUserMail);
         userName = headerView.findViewById(R.id.drawerNameUser);
 
+        firebaseUser = fAuth.getCurrentUser();
         if (firebaseUser != null) {
-            String userId = firebaseUser.getUid();
-           fetchUserData(userId);
+            currentUserId = firebaseUser.getUid();
+            fetchUserData(currentUserId);
         } else {
             Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
         }
-
-
 
         // Setup RecyclerView
         recyclerView = findViewById(R.id.users_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         usersList = new ArrayList<>();
-        userAdapter = new UserAdapter(this, usersList);
+        userAdapter = new UserAdapter(this, usersList, currentUserId);
         recyclerView.setAdapter(userAdapter);
 
         // Fetch Users
@@ -144,39 +139,49 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
             return;
         }
 
-        // Get current user's student ID
+        // Fetch all users with studentId (normal users)
         fStore.collection("users")
-                .document(fAuth.getCurrentUser().getUid())
-                .get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    String currentUserStudentId = documentSnapshot.getString("studentId");
+                .whereNotEqualTo("studentId", null)
+                .addSnapshotListener((queryDocumentSnapshots, e) -> {
+                    if (e != null) {
+                        Toast.makeText(this, "Error fetching users: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
-                    // Fetch all users with studentId
-                    fStore.collection("users")
-                            .whereNotEqualTo("studentId", null)
-                            .get()
-                            .addOnSuccessListener(queryDocumentSnapshots -> {
-                                usersList.clear();
-                                for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                                    // Exclude current user
-                                    if (!document.getId().equals(fAuth.getCurrentUser().getUid())) {
-                                        Users user = new Users(
-                                                document.getId(),
-                                                document.getString("Name"),
-                                                document.getString("Email"),
-                                                document.getString("studentId")
-                                        );
-                                        usersList.add(user);
-                                    }
-                                }
-                                userAdapter.notifyDataSetChanged();
-                            })
-                            .addOnFailureListener(e -> {
-                                Toast.makeText(this, "Error fetching users: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            });
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(this, "Error fetching current user: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    usersList.clear();
+                    for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                        // Exclude current user
+                        if (!document.getId().equals(fAuth.getCurrentUser().getUid())) {
+                            String profileImageUrl = document.getString("profileImageUrl");
+                            Boolean isAdmin = document.getBoolean("checkLevel");
+                            
+                            Users user = new Users(
+                                    document.getId(),
+                                    document.getString("Name"),
+                                    document.getString("Email"),
+                                    document.getString("studentId"),
+                                    document.getString("lastMessage"),
+                                    document.getLong("lastMessageTimestamp"),
+                                    profileImageUrl,
+                                    isAdmin
+                            );
+                            usersList.add(user);
+                        }
+                    }
+                    
+                    // Sort users based on last message timestamp, handling nulls
+                    usersList.sort((u1, u2) -> {
+                        Long timestamp1 = u1.getLastMessageTimestamp();
+                        Long timestamp2 = u2.getLastMessageTimestamp();
+
+                        // Handle null values
+                        if (timestamp1 == null && timestamp2 == null) return 0;
+                        if (timestamp1 == null) return 1;
+                        if (timestamp2 == null) return -1;
+
+                        return timestamp2.compareTo(timestamp1); // Sort in descending order
+                    });
+                    userAdapter.notifyDataSetChanged();
                 });
     }
 
@@ -199,9 +204,9 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
     private void fetchUserData(String userId) {
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        DocumentReference docRef = firestore.collection("users").document(userId);
+        DocumentReference docRef = fStore.collection("users").document(userId);
         docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException error) {
@@ -215,7 +220,6 @@ public class UserActivity extends AppCompatActivity implements NavigationView.On
                     String email = snapshot.getString("Email");
                     userName.setText(name);
                     userEmail.setText(email);
-                    userHomeName.setText("Welcome " + name);
                 } else {
                     Toast.makeText(getApplicationContext(), "User data not found", Toast.LENGTH_SHORT).show();
                 }

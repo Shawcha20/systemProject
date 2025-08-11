@@ -7,14 +7,9 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,6 +19,7 @@ import com.example.educationappsysproject.homepage.allCoursesSection;
 import com.example.educationappsysproject.homepage.chatBotActivity;
 import com.example.educationappsysproject.homepage.homeScreen;
 import com.example.educationappsysproject.homepage.models.ChatMessage;
+import com.example.educationappsysproject.homepage.searchCourseActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -54,52 +50,16 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_chat);
+
         // Initialize Firebase
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         currentUserId = fAuth.getCurrentUser().getUid();
 
-
-        // bottom navigation
-        // Initialize BottomNavigationView
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-
-        // Set the default selected item (Home)
-        bottomNavigationView.setSelectedItemId(R.id.nav_chat);
-
-        // Handle bottom navigation clicks
-        bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int itemId = item.getItemId();
-                if (itemId == R.id.nav_home) {
-                    startActivity(new Intent(getApplicationContext(), homeScreen.class)); // Already in home screen
-                } else if (itemId == R.id.nav_chat) {
-                    startActivity(new Intent(getApplicationContext(), allCoursesSection.class));
-                    overridePendingTransition(0, 0);
-                    return true;
-                } else if (itemId == R.id.nav_chatbot) {
-                    startActivity(new Intent(getApplicationContext(), UserActivity.class));
-                    overridePendingTransition(0, 0);
-                    return true;
-                } else if (itemId == R.id.nav_course) {
-                    startActivity(new Intent(getApplicationContext(), chatBotActivity.class));
-                    overridePendingTransition(0, 0);
-                    return true;
-                }
-                return false;
-            }
-        });
-
-
-
         // Get Intent Extras
         receiverId = getIntent().getStringExtra("userId");
         receiverName = getIntent().getStringExtra("userName");
-
-
 
         // Initialize Views
         chatRecyclerView = findViewById(R.id.chat_recycler_view);
@@ -120,10 +80,43 @@ public class ChatActivity extends AppCompatActivity {
 
         // Send Message
         sendButton.setOnClickListener(v -> sendMessage());
+
+        // Bottom navigation
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.nav_chatbot);
+
+        // Handle bottom navigation clicks
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.nav_home) {
+                startActivity(new Intent(getApplicationContext(), homeScreen.class));
+                overridePendingTransition(0, 0);
+                return true;
+            } else if (itemId == R.id.nav_chat) {
+                startActivity(new Intent(getApplicationContext(), allCoursesSection.class));
+                overridePendingTransition(0, 0);
+                return true;
+            } else if (itemId == R.id.nav_chatbot) {
+                startActivity(new Intent(getApplicationContext(), UserActivity.class));
+                overridePendingTransition(0, 0);
+//                return true;
+            } else if (itemId == R.id.nav_course) {
+                startActivity(new Intent(getApplicationContext(), chatBotActivity.class));
+                overridePendingTransition(0, 0);
+                return true;
+            }
+            else if(itemId==R.id.nav_search){
+                startActivity(new Intent(getApplicationContext(), searchCourseActivity.class));
+                overridePendingTransition(0, 0);
+                return true;
+            }
+            return false;
+        });
+
+
     }
 
     private void loadMessages() {
-        // Create a unique chat room ID (sorted to ensure consistency)
         String chatRoomId = generateChatRoomId(currentUserId, receiverId);
 
         fStore.collection("chats")
@@ -150,7 +143,6 @@ public class ChatActivity extends AppCompatActivity {
 
                         chatAdapter.notifyDataSetChanged();
 
-                        // Scroll to the last message
                         if (!chatMessages.isEmpty()) {
                             chatRecyclerView.scrollToPosition(chatMessages.size() - 1);
                         }
@@ -165,27 +157,23 @@ public class ChatActivity extends AppCompatActivity {
             return;
         }
 
-        // Create a unique chat room ID (sorted to ensure consistency)
         String chatRoomId = generateChatRoomId(currentUserId, receiverId);
 
-        // Prepare message data
         Map<String, Object> message = new HashMap<>();
         message.put("senderId", currentUserId);
         message.put("receiverId", receiverId);
         message.put("message", messageText);
         message.put("timestamp", System.currentTimeMillis());
-        message.put("type", "text"); // Add message type
+        message.put("type", "text");
 
-        // Save to Firestore
         fStore.collection("chats")
                 .document(chatRoomId)
                 .collection("messages")
                 .add(message)
                 .addOnSuccessListener(documentReference -> {
-                    // Clear input after sending
                     messageInput.setText("");
+                    updateUserList(currentUserId, receiverId, messageText);
 
-                    // Scroll to bottom
                     if (!chatMessages.isEmpty()) {
                         chatRecyclerView.scrollToPosition(chatMessages.size() - 1);
                     }
@@ -195,18 +183,33 @@ public class ChatActivity extends AppCompatActivity {
                 });
     }
 
-    // Generate a consistent chat room ID
+    private void updateUserList(String senderId, String receiverId, String messageText) {
+        fStore.collection("users")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                        if (document.getId().equals(senderId) || document.getId().equals(receiverId)) {
+                            Map<String, Object> userUpdate = new HashMap<>();
+                            userUpdate.put("lastMessage", messageText);
+                            userUpdate.put("lastMessageTimestamp", System.currentTimeMillis());
+
+                            fStore.collection("users").document(document.getId()).update(userUpdate);
+                        }
+                    }
+                });
+    }
+
+
     private String generateChatRoomId(String user1, String user2) {
-        // Ensure the chat room ID is the same regardless of who starts the chat
         return user1.compareTo(user2) < 0 ? user1 + "" + user2 : user2 + "" + user1;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            // onBackPressed();
+            onBackPressed();
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
+}
 }

@@ -8,6 +8,7 @@
     android:background="@android:color/white">
 
     <!-- Title -->
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar2"
         android:layout_width="match_parent"
@@ -70,6 +71,26 @@
         android:layout_marginBottom="16dp" />
 
     <!-- Next Button -->
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Catagory:"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/editTextCatagory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@android:drawable/editbox_background"
+        android:hint="Enter the catagory"
+        android:padding="12dp"
+        android:textSize="16sp" />
+
     <Button
         android:id="@+id/going_to_video"
         android:layout_width="match_parent"

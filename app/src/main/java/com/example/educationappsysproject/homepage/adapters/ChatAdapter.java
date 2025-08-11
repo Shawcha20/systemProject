@@ -1,3 +1,4 @@
+//ChatAdpater
 package com.example.educationappsysproject.homepage.adapters;
 
 
@@ -172,6 +173,6 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             messageText = itemView.findViewById(R.id.received_message_text);
             messageTime = itemView.findViewById(R.id.received_message_time);
             messageDate = itemView.findViewById(R.id.received_message_date);
-        }
+}
     }
 }

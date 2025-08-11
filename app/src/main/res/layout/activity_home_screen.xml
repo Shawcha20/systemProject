@@ -107,6 +107,14 @@
                     android:padding="5dp" />
 
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/categoryRecyclerViewCatagory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="8dp" />
+
+
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 

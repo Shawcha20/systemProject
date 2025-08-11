@@ -2,6 +2,9 @@ package com.example.educationappsysproject.admin.course;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,39 +92,47 @@ public class courseAdapter extends ArrayAdapter<String> {
     }
 
     private void deleteCourse(int position, String courseName) {
+        if (context == null) {
+            Log.e("DeleteCourse", "Context is null");
+            return;
+        }
+
+        if (position < 0 || position >= courseNames.size()) {
+            Toast.makeText(context, "Invalid course position.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
-        // Query the "course" collection to find the document with the matching title (courseName)
         firestore.collection("course")
-                .whereEqualTo("title", courseName) // Adjust the field name to match your Firestore document structure
+                .whereEqualTo("title", courseName)
                 .get()
                 .addOnSuccessListener(querySnapshot -> {
                     if (!querySnapshot.isEmpty()) {
-                        // Loop through the results and delete each document
                         for (DocumentSnapshot document : querySnapshot.getDocuments()) {
                             String documentId = document.getId();
 
-                            // Delete the document
                             firestore.collection("course")
                                     .document(documentId)
                                     .delete()
                                     .addOnSuccessListener(aVoid -> {
+                                        if (position < courseNames.size()) { // Prevent index out of bounds
+                                            courseNames.remove(position);
+                                            new Handler(Looper.getMainLooper()).post(this::notifyDataSetChanged);
+                                        }
                                         Toast.makeText(context, "Course deleted successfully.", Toast.LENGTH_SHORT).show();
-
-                                        // Update the adapter's list and notify changes
-                                        courseNames.remove(position);
-                                        notifyDataSetChanged();
                                     })
-                                    .addOnFailureListener(e -> {
-                                        Toast.makeText(context, "Error deleting course: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                    });
+                                    .addOnFailureListener(e ->
+                                            Log.e("DeleteCourse", "Error deleting course", e)
+                                    );
                         }
                     } else {
                         Toast.makeText(context, "Course not found in Firestore.", Toast.LENGTH_SHORT).show();
                     }
                 })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(context, "Error fetching course: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                });
+                .addOnFailureListener(e ->
+                        Log.e("DeleteCourse", "Error fetching course", e)
+                );
     }
+
 }

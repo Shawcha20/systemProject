@@ -59,7 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="selec the picture for exam"
+        android:text="select the picture for exam"
         android:textColor="@android:color/black"
         android:textSize="18sp" />
     <Button

@@ -6,7 +6,6 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -15,65 +14,220 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:elevation="4dp" />
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/back_courses"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_margin="5dp">
+            android:fillViewport="true">
 
-            <TextView
-                android:id="@+id/userHomeName"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:text="User Name" />
+                android:orientation="vertical"
+                android:padding="16dp">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp">
-
+                <!-- Welcome Header -->
                 <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/userHomeName"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="All Courses"
-                    android:textAlignment="center"
-                    android:textSize="34sp"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
                     android:textStyle="bold"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true" />
+                    android:fontFamily="@font/poppins"
+                    android:text="Welcome Admin"
+                    android:layout_marginBottom="16dp" />
 
-                <Button
-                    android:id="@+id/addVideoButton"
-                    android:layout_width="wrap_content"
+                <!-- Statistics Dashboard -->
+                <TextView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Add"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true" />
-            </RelativeLayout>
+                    android:text="Dashboard Statistics"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppins"
+                    android:layout_marginBottom="16dp" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="24dp">
 
+                    <!-- Total Courses Card -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:background="@drawable/stats_card_background"
+                        android:padding="16dp"
+                        android:layout_marginEnd="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Total Courses"
+                            android:textSize="14sp"
+                            android:textColor="#757575"
+                            android:fontFamily="@font/poppins" />
+
+                        <TextView
+                            android:id="@+id/totalCoursesText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/poppins" />
+                    </LinearLayout>
+
+                    <!-- Total Users Card -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:background="@drawable/stats_card_background"
+                        android:padding="16dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="4dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Total Users"
+                            android:textSize="14sp"
+                            android:textColor="#757575"
+                            android:fontFamily="@font/poppins" />
+
+                        <TextView
+                            android:id="@+id/totalUsersText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/poppins"
+                            android:background="?attr/selectableItemBackground"
+                            android:padding="8dp"
+                            android:clickable="true"
+                            android:focusable="true" />
+                    </LinearLayout>
+
+                    <!-- Total Enrollments Card -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:background="@drawable/stats_card_background"
+                        android:padding="16dp"
+                        android:layout_marginStart="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Enrollments"
+                            android:textSize="14sp"
+                            android:textColor="#757575"
+                            android:fontFamily="@font/poppins" />
+
+                        <TextView
+                            android:id="@+id/totalEnrollmentsText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/poppins" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Action Buttons -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="24dp">
+
+                    <Button
+                        android:id="@+id/viewStatsButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="View Statistics"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/poppins"
+                        android:background="@drawable/button_background"
+                        android:textColor="@color/white"
+                        android:layout_marginEnd="8dp" />
+
+                    <Button
+                        android:id="@+id/viewChatsButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="View Chats"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/poppins"
+                        android:background="@drawable/button_background"
+                        android:textColor="@color/white"
+                        android:layout_marginStart="8dp" />
+                </LinearLayout>
+
+                <!-- Courses Section -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="All Courses"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/poppins" />
+
+                    <Button
+                        android:id="@+id/addVideoButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Add Course"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/poppins"
+                        android:background="@drawable/button_background"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <!-- Courses List -->
                 <ListView
                     android:id="@+id/videoListView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </RelativeLayout>
+                    android:layout_height="300dp"
+                    android:background="@drawable/list_background"
+                    android:divider="@drawable/list_divider"
+                    android:dividerHeight="1dp" />
 
-        </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
-
 
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
@@ -83,7 +237,6 @@
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/admin_nav_drawer"
         app:itemIconTint="#CD0F0F"
-        app:itemTextColor="#42BDFA"
-        />
+        app:itemTextColor="#42BDFA" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

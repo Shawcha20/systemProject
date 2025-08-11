@@ -80,6 +80,7 @@ public class homeScreen extends AppCompatActivity implements NavigationView.OnNa
                 int itemId = item.getItemId();
                 if (itemId == R.id.nav_home) {
                     startActivity(new Intent(getApplicationContext(), homeScreen.class)); // Already in home screen
+                    overridePendingTransition(0, 0);
                 } else if (itemId == R.id.nav_chat) {
                     startActivity(new Intent(getApplicationContext(), allCoursesSection.class));
                     overridePendingTransition(0, 0);
@@ -93,6 +94,10 @@ public class homeScreen extends AppCompatActivity implements NavigationView.OnNa
                     overridePendingTransition(0, 0);
                     return true;
                 }
+                else if(itemId==R.id.nav_search){
+                    startActivity(new Intent(getApplicationContext(), searchCourseActivity.class));
+                    overridePendingTransition(0, 0);
+                    return true;                }
                 return false;
             }
         });
@@ -165,23 +170,25 @@ public class homeScreen extends AppCompatActivity implements NavigationView.OnNa
         coursesRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
-                   Integer popular = document.get("popular", Integer.class);
-                    if(popular > 1){
-                    String title = document.getString("title");
-                    String imageUrl = document.getString("imageUrl");
+                    // Fetching 'popular' as Long (Firestore default for numbers)
+                    Long popular = document.getLong("popular");
 
-                    if (title != null && imageUrl != null) {
+                    // Check if 'popular' is not null and greater than 1
+                    if (popular != null && popular > 1) {
+                        String title = document.getString("title");
+                        String imageUrl = document.getString("imageUrl");
 
-                        courseList.add(new Course(title, imageUrl));
-                    } else {
-                        Log.w("fetchCourses", "Missing title or imageUrl in course document");
-                    }
+                        if (title != null && imageUrl != null) {
+                            courseList.add(new Course(title, imageUrl));
+                        } else {
+                            Log.w("fetchCourses", "Missing title or imageUrl in course document");
+                        }
                     }
                 }
                 adapter.notifyDataSetChanged();
             } else {
-               Toast.makeText(homeScreen.this, "Error fetching courses", Toast.LENGTH_SHORT).show();
-           }
+                Toast.makeText(homeScreen.this, "Error fetching courses", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
@@ -194,7 +201,7 @@ public class homeScreen extends AppCompatActivity implements NavigationView.OnNa
         } else if (getUid == R.id.nav_user) {
             startActivity(new Intent(homeScreen.this, userDeatils.class));
         } else if (getUid == R.id.nav_creator) {
-            startActivity(new Intent(homeScreen.this, splashScreen.class));
+            startActivity(new Intent(homeScreen.this, abouUs.class));
         } else if (getUid == R.id.nav_logOutDrawer) {
             auth.signOut();
             startActivity(new Intent(homeScreen.this, login.class));

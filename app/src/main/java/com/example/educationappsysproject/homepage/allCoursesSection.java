@@ -80,6 +80,7 @@ public class allCoursesSection extends AppCompatActivity implements NavigationVi
                     int itemId = item.getItemId();
                     if (itemId == R.id.nav_home) {
                         startActivity(new Intent(getApplicationContext(), homeScreen.class)); // Already in home screen
+                        overridePendingTransition(0, 0);
                     } else if (itemId == R.id.nav_chat) {
                         startActivity(new Intent(getApplicationContext(), allCoursesSection.class));
                         overridePendingTransition(0, 0);
@@ -93,6 +94,10 @@ public class allCoursesSection extends AppCompatActivity implements NavigationVi
                         overridePendingTransition(0, 0);
                         return true;
                     }
+                    else if(itemId==R.id.nav_search){
+                        startActivity(new Intent(getApplicationContext(), searchCourseActivity.class));
+                        overridePendingTransition(0, 0);
+                        return true;                }
                     return false;
                 }
             });

@@ -19,7 +19,7 @@ import java.util.Map;
 public class addCourseName extends AppCompatActivity {
 
     private Button gotoVideo;
-    private EditText editTextCourseName, editTextDescription;
+    private EditText editTextCourseName, editTextDescription, editTextCatagory;
     private FirebaseFirestore db;
 
     @Override
@@ -32,6 +32,7 @@ public class addCourseName extends AppCompatActivity {
         gotoVideo = findViewById(R.id.going_to_video);
         editTextCourseName = findViewById(R.id.editTextCourseName);
         editTextDescription = findViewById(R.id.editTextDescription);
+        editTextCatagory= findViewById(R.id.editTextCatagory);
 
         // Initialize Firebase Firestore
         db = FirebaseFirestore.getInstance();
@@ -43,24 +44,24 @@ public class addCourseName extends AppCompatActivity {
                 // Get input data
                 String courseName = editTextCourseName.getText().toString().trim();
                 String description = editTextDescription.getText().toString().trim();
-
+                String catagory= editTextCatagory.getText().toString().trim();
                 // Validate input fields
                 if (courseName.isEmpty() || description.isEmpty()) {
                     Toast.makeText(addCourseName.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                 } else {
-                    uploadCourseData(courseName, description);
+                    uploadCourseData(courseName, description, catagory);
                 }
             }
         });
     }
 
     // Method to upload course data to Firestore
-    private void uploadCourseData(String courseName, String description) {
+    private void uploadCourseData(String courseName, String description, String catagory) {
         // Create a map to store the data
         Map<String, Object> courseData = new HashMap<>();
         courseData.put("title", courseName);
         courseData.put("course_description", description);
-        courseData.put("enrolled",false);
+        courseData.put("catagory", catagory);
         // Add the data to the "course" collection
         db.collection("course")
                 .add(courseData)

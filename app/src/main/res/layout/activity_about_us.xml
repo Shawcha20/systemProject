@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#B5ECF3"
+    android:background="@color/colorPrimaryDark"
     android:gravity="center"
     tools:context=".homepage.abouUs">
 
@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="#B5ECF3"
+            android:background="@color/colorLightDark"
             android:layout_gravity="center"
             android:gravity="center"
             android:foregroundGravity="center">

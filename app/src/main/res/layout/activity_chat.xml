@@ -17,7 +17,7 @@
             android:id="@+id/toolbar7"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:background="@color/blue"
+            android:background="@color/black_transparent"
             android:elevation="4dp" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -41,7 +41,7 @@
                 android:id="@+id/attach_button"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/message_input_background"
+                android:src="@drawable/attach_logo"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Attach file"
                 android:padding="12dp"/>
@@ -62,7 +62,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:src="@android:drawable/ic_menu_send"
-                android:background="@drawable/message_input_background"
+                android:background="@color/black_transparent"
                 android:contentDescription="Send message"
                 android:padding="12dp"/>
         </LinearLayout>

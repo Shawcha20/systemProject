@@ -60,4 +60,24 @@
             app:argType="string"
             android:defaultValue="null" />
     </fragment>
+    <activity
+        android:id="@+id/login"
+        android:name="com.example.educationappsysproject.Authentication.login"
+        android:label="activity_signup"
+        tools:layout="@layout/activity_signup" />
+    <activity
+        android:id="@+id/splashScreen"
+        android:name="com.example.educationappsysproject.splashScreen"
+        android:label="activity_splash_screen"
+        tools:layout="@layout/activity_splash_screen" />
+    <activity
+        android:id="@+id/courseDetails"
+        android:name="com.example.educationappsysproject.homepage.courseDetails"
+        android:label="activity_course_details"
+        tools:layout="@layout/activity_course_details" />
+    <activity
+        android:id="@+id/abouUs3"
+        android:name="com.example.educationappsysproject.homepage.abouUs"
+        android:label="activity_about_us"
+        tools:layout="@layout/activity_about_us" />
 </navigation>
