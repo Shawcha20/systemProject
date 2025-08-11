@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp">
+
+    <!-- Ensure the TextView is clickable -->
+    <TextView
+        android:id="@+id/CourseUrlText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="8dp"
+        android:text="Video URL"
+        android:textSize="16sp"
+        android:clickable="true"
+        android:focusable="false" />
+
+    <!-- Make the Button non-focusable so it doesn't intercept ListView clicks -->
+    <Button
+        android:id="@+id/courseDeleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:clickable="true" />
+</LinearLayout>

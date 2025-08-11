@@ -50,11 +50,17 @@
     <color name="red_light">#33D32F2F</color>
 
     <color name="nav_bar_color">#33CFCFCF</color>
+    <color name="gray">#808080</color>
 
     <color name="option1">#503FEF</color>
     <color name="option2">#A919DD</color>
     <color name="option3">#E34B4A</color>
     <color name="option4">#FF8033</color>
-
+    <color name="greensha">#00FF00</color>
+    <color name="redsha">#FF0000</color>
     <color name="colorPrimaryText">@android:color/white</color>
+
+    <color name="light_sky">#87CEFA</color> <!-- Replace with the desired light sky color -->
+    <color name="blue">#0000FF</color> <!-- Replace with the desired blue color -->
+    <color name="purple">#800080</color> <!-- Replace with the desired purple color -->
 </resources>

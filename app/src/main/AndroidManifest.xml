@@ -3,17 +3,74 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="StudyNest"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EducationAPPsysProject"
+        tools:replace="android:icon"
         tools:targetApi="31">
+        <activity
+            android:name=".quizResult"
+            android:exported="false" />
+        <activity
+            android:name=".homepage.searchCourseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".homepage.chat.ChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".homepage.chat.UserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".homepage.chatBotActivity"
+            android:exported="false" />
+        <activity
+            android:name=".homepage.allCoursesSection"
+            android:exported="false" />
+        <activity
+            android:name=".homepage.course_description"
+            android:exported="false" />
+        <activity
+            android:name=".admin.editCourse.updateVideo"
+            android:exported="false" />
+        <activity
+            android:name=".admin.editCourse.updateQuestion"
+            android:exported="false" />
+        <activity
+            android:name=".admin.editCourse.pdateVideo"
+            android:exported="false" />
+        <activity
+            android:name=".admin.editCourse.show_course_content"
+            android:exported="false" />
+        <activity
+            android:name=".admin.addcourse_folder.number_of_questions"
+            android:exported="false" />
+        <activity
+            android:name=".admin.addcourse_folder.uploadingQuestions"
+            android:exported="false" />
+        <activity
+            android:name=".admin.addcourse_folder.uploadVideoPic"
+            android:exported="false" />
+        <activity
+            android:name=".examsection.views.ExamHome"
+            android:exported="false" />
+        <activity
+            android:name=".admin.addcourse_folder.addCourseName"
+            android:exported="false" />
+        <activity
+            android:name=".homepage.abouUs"
+            android:exported="false" />
+        <activity
+            android:name=".homepage.userDeatils"
+            android:exported="false" />
         <activity
             android:name=".homepage.courseDetails"
             android:exported="false" />
@@ -24,10 +81,22 @@
             android:name=".Authentication.signup"
             android:exported="false" />
         <activity
+            android:name=".admin.adminHomePage"
+            android:exported="false" />
+        <activity
+            android:name=".admin.AdminChatActivity"
+            android:exported="false" />
+        <activity
             android:name=".Authentication.login"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".videosection.VideoHome"
+            android:exported="false" />
+        <activity
+            android:name=".videosection.ShowVideo"
             android:exported="false" />
         <activity
             android:name=".splashScreen"

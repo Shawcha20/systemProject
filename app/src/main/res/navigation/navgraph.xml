@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/listFragment">
+
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.example.educationappsysproject.examsection.views.ListFragment"
+        android:label="fragment_list"
+        tools:layout="@layout/fragment_list" >
+        <action
+            android:id="@+id/action_listFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.educationappsysproject.examsection.views.detailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" >
+        <action
+            android:id="@+id/action_detailFragment_to_quizFragment"
+            app:destination="@id/quizFragment" />
+        <argument
+            android:name="position"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+    <fragment
+        android:id="@+id/quizFragment"
+        android:name="com.example.educationappsysproject.examsection.views.quizFragment"
+        android:label="fragment_quiz"
+        tools:layout="@layout/fragment_quiz" >
+        <action
+            android:id="@+id/action_quizFragment_to_resultFragment"
+            app:destination="@id/resultFragment" />
+        <argument
+            android:name="examId"
+            app:argType="string"
+            android:defaultValue="null" />
+        <argument
+            android:name="totalQueCount"
+            app:argType="long"
+            android:defaultValue="0L" />
+        <action
+            android:id="@+id/action_quizFragment_to_listFragment"
+            app:destination="@id/resultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="com.example.educationappsysproject.examsection.views.ResultFragment"
+        android:label="fragment_result"
+        tools:layout="@layout/fragment_result" >
+        <action
+            android:id="@+id/action_resultFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+        <argument
+            android:name="examId"
+            app:argType="string"
+            android:defaultValue="null" />
+    </fragment>
+    <activity
+        android:id="@+id/login"
+        android:name="com.example.educationappsysproject.Authentication.login"
+        android:label="activity_signup"
+        tools:layout="@layout/activity_signup" />
+    <activity
+        android:id="@+id/splashScreen"
+        android:name="com.example.educationappsysproject.splashScreen"
+        android:label="activity_splash_screen"
+        tools:layout="@layout/activity_splash_screen" />
+    <activity
+        android:id="@+id/courseDetails"
+        android:name="com.example.educationappsysproject.homepage.courseDetails"
+        android:label="activity_course_details"
+        tools:layout="@layout/activity_course_details" />
+    <activity
+        android:id="@+id/abouUs3"
+        android:name="com.example.educationappsysproject.homepage.abouUs"
+        android:label="activity_about_us"
+        tools:layout="@layout/activity_about_us" />
+</navigation>

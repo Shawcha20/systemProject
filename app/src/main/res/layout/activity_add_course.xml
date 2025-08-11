@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@android:color/white">
+
+    <!-- Title -->
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Course Title and Description"
+        android:textAlignment="center"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Course Name -->
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Course Name:"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp"
+        android:textColor="@android:color/black" />
+
+    <EditText
+        android:id="@+id/editTextCourseName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter course name"
+        android:padding="12dp"
+        android:background="@android:drawable/editbox_background"
+        android:textSize="16sp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Description -->
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Description:"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp"
+        android:textColor="@android:color/black" />
+
+    <EditText
+        android:id="@+id/editTextDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter details"
+        android:padding="12dp"
+        android:background="@android:drawable/editbox_background"
+        android:textSize="16sp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Next Button -->
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Catagory:"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/editTextCatagory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@android:drawable/editbox_background"
+        android:hint="Enter the catagory"
+        android:padding="12dp"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/going_to_video"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/blue"
+        android:padding="12dp"
+        android:text="Next"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+</LinearLayout>

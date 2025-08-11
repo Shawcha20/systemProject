@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nestedScrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:padding="16dp"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- Header with Edit Button -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Profile"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:fontFamily="@font/poppins"
+                android:gravity="center" />
+
+            <ImageView
+                android:id="@+id/editButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/edit_btn"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Edit Profile"
+                android:padding="4dp" />
+        </LinearLayout>
+
+        <!-- Welcome Text -->
+        <TextView
+            android:id="@+id/welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:fontFamily="@font/poppins"
+            android:text="Welcome!"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/black" />
+
+        <!-- User Profile Image -->
+        <FrameLayout
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginBottom="24dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/profileImage"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/user"
+                android:scaleType="centerCrop"
+                android:padding="2dp"
+                android:background="@drawable/circular_profile_background"
+                app:shapeAppearanceOverlay="@style/CircleImageViewStyle" />
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="bottom|end"
+                android:src="@drawable/ic_baseline_camera_24"
+                android:background="@drawable/camera_button_background"
+                android:padding="12dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="Change Photo" />
+        </FrameLayout>
+
+        <!-- View Mode Layout -->
+        <LinearLayout
+            android:id="@+id/viewLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- User Name -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/info_card_background"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="Name:"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/fName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="John Doe"
+                    android:textSize="16sp"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <!-- Roll -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/info_card_background"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="Roll:"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/fRoll"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="12345"
+                    android:textSize="16sp"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <!-- Email -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/info_card_background"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="Email:"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/fEmail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="john@example.com"
+                    android:textSize="16sp"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Edit Mode Layout -->
+        <LinearLayout
+            android:id="@+id/editLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <!-- Edit Name -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppins"
+                    android:layout_marginBottom="8dp" />
+
+                <EditText
+                    android:id="@+id/editName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter your name"
+                    android:padding="16dp"
+                    android:background="@drawable/edit_text_background"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/poppins" />
+            </LinearLayout>
+
+            <!-- Edit Roll -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="24dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Roll Number"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppins"
+                    android:layout_marginBottom="8dp" />
+
+                <EditText
+                    android:id="@+id/editRoll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter your roll number"
+                    android:padding="16dp"
+                    android:background="@drawable/edit_text_background"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/poppins" />
+            </LinearLayout>
+
+            <!-- Save Button -->
+            <Button
+                android:id="@+id/saveButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Save Changes"
+                android:textSize="16sp"
+                android:fontFamily="@font/poppins"
+                android:background="@drawable/button_background"
+                android:textColor="@color/white"
+                android:layout_marginBottom="16dp" />
+        </LinearLayout>
+
+        <!-- Action Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:weightSum="3">
+
+            <Button
+                android:id="@+id/viewResultsBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Results"
+                android:textSize="14sp"
+                android:fontFamily="@font/poppins"
+                android:background="@drawable/action_button_background"
+                android:textColor="@color/white"
+                android:layout_marginEnd="8dp" />
+
+            <Button
+                android:id="@+id/enrolledCoursesBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Enrolled"
+                android:textSize="14sp"
+                android:fontFamily="@font/poppins"
+                android:background="@drawable/action_button_background"
+                android:textColor="@color/white"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp" />
+
+            <Button
+                android:id="@+id/bookRecommendBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Books"
+                android:textSize="14sp"
+                android:fontFamily="@font/poppins"
+                android:background="@drawable/action_button_background"
+                android:textColor="@color/white"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
+
+        <!-- Books Section Title + Spinner -->
+        <LinearLayout
+            android:id="@+id/booksSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/booksSectionTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Recommended Books"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:fontFamily="@font/poppins"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp"
+                android:gravity="center_vertical"
+                android:background="@drawable/spinner_background"
+                android:padding="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Show:"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppins" />
+
+                <Spinner
+                    android:id="@+id/countSpinner"
+                    android:layout_width="wrap_content"
+                    android:minHeight="48dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp" />
+            </LinearLayout>
+
+            <!-- RecyclerView for Books -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/booksRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:nestedScrollingEnabled="true"
+                android:scrollbars="vertical"
+                android:background="@drawable/recycler_background" />
+        </LinearLayout>
+
+        <!-- Back to Homepage -->
+        <Button
+            android:id="@+id/backToHomePage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            android:text="Back to Homepage"
+            android:textSize="16sp"
+            android:fontFamily="@font/poppins"
+            android:background="@drawable/button_background"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

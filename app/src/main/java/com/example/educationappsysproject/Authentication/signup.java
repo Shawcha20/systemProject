@@ -140,6 +140,8 @@ public class signup extends AppCompatActivity {
                         user.put("studentId",Rsid);
                         user.put("Email", Remail);
                         user.put("Name",RsName);
+                        user.put("checkLevel",false);
+                        user.put("profileImg","");
                         documentReference.set(user).addOnSuccessListener(unused -> {
 
                                //Toast.makeText(signup.this,"success"+task.getException().getMessage(),Toast.LENGTH_SHORT).show();

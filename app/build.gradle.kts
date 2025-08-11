@@ -17,6 +17,10 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField(
+            "String",
+            "GEMINI_API_KEY",
+            "\"${property("GEMINI_API_KEY")}\"")
     }
 
     buildTypes {
@@ -31,10 +35,18 @@ android {
 
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    sourceSets {
+        getByName("main") {
+            java {
+                srcDirs("src\\main\\java", "src\\main\\java\\2")
+            }
+        }
     }
 }
 val navVersion = "2.2.1"
@@ -48,15 +60,47 @@ dependencies {
     implementation(libs.firebase.database)
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
+    implementation(libs.firebase.storage)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
+    implementation("org.json:json:20230227")
+    implementation("com.google.code.gson:gson:2.8.9")
+
+
+
+
+
+
+
+
+    //pdf section
+
+
+//    implementation("com.google.firebase:firebase-storage:21.0.0")
+//    implementation ("com.github.barteksc:android-pdf-viewer:2.8.2")
+//    implementation ("androidx.recyclerview:recyclerview:1.2.1")
+//    androidTestImplementation ("androidx.test:runner:1.3.0")
+//    testImplementation ("androidx.test:core:1.3.0")
+//    testImplementation ("org.mockito:mockito-core:3.6.28")
+//    testImplementation ("androidx.test.ext:junit:1.1.2")
+//    implementation("androidx.activity:activity:1.8.0")
+//
+//    implementation("com.google.firebase:firebase-firestore:25.0.0")
+//    implementation("com.google.firebase:firebase-database:21.0.0")
+
+
+
+
+    //exam section
     implementation("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
     implementation("androidx.navigation:navigation-fragment:$navVersion")
     implementation("androidx.navigation:navigation-ui:$navVersion")
+    implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
 
 }
